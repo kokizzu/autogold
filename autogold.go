@@ -4,7 +4,6 @@ import (
 	"crypto/sha256"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -125,7 +124,7 @@ func ExpectFile(t *testing.T, got interface{}, opts ...Option) {
 		unlock() // don't hold the lock while we perform IO, diffing, etc. below.
 	}
 
-	want, err := ioutil.ReadFile(outFile)
+	want, err := os.ReadFile(outFile)
 	if err != nil && !os.IsNotExist(err) {
 		t.Fatal(err)
 	}
@@ -138,7 +137,7 @@ func ExpectFile(t *testing.T, got interface{}, opts ...Option) {
 	isEmptyFile := isRaw && gotString == ""
 	if isEmptyFile && shouldCleanup() {
 		grabLock()
-		os.Remove(outFile)
+		_ = os.Remove(outFile)
 	}
 	if diff != "" {
 		if update() {
@@ -148,7 +147,7 @@ func ExpectFile(t *testing.T, got interface{}, opts ...Option) {
 					t.Fatal(err)
 				}
 			}
-			if err := ioutil.WriteFile(outFile, []byte(gotString), 0o666); err != nil {
+			if err := os.WriteFile(outFile, []byte(gotString), 0o666); err != nil {
 				t.Fatal(err)
 			}
 		}

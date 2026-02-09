@@ -6,7 +6,6 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -59,7 +58,6 @@ func getPackageNameAndPath(dir, file string) (name, path string, err error) {
 	pkgs, err := packages.Load(&packages.Config{Mode: packages.NeedName | packages.NeedFiles, Tests: true}, dir)
 	if err != nil {
 		return "", "", err
-
 	}
 
 	var testPkg *packages.Package
@@ -291,7 +289,7 @@ func replaceExpect(t *testing.T, testFilePath, testName string, line int, replac
 		}
 	}()
 
-	testFileSrc, err := ioutil.ReadFile(testFilePath)
+	testFileSrc, err := os.ReadFile(testFilePath)
 	if err != nil {
 		return nil, err
 	}
@@ -352,7 +350,7 @@ func replaceExpect(t *testing.T, testFilePath, testName string, line int, replac
 		if err != nil {
 			return nil, err
 		}
-		if err := ioutil.WriteFile(testFilePath, []byte(newFile), info.Mode()); err != nil {
+		if err := os.WriteFile(testFilePath, []byte(newFile), info.Mode()); err != nil {
 			return nil, err
 		}
 	}
