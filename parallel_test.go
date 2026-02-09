@@ -23,7 +23,6 @@ func testParallel(t *testing.T, prefix string) {
 	}
 
 	for _, name := range testTable {
-		name := name
 
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()

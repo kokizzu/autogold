@@ -17,7 +17,7 @@ func diff(got, want string, opts []Option) string {
 // Raw denotes a raw string.
 type Raw string
 
-func stringify(v interface{}, opts []Option) string {
+func stringify(v any, opts []Option) string {
 	var (
 		allowRaw, trailingNewline bool
 		valastOpt                 = &valast.Options{}

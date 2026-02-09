@@ -45,7 +45,7 @@ func update() bool {
 //
 // If the input value is of type Raw, its contents will be directly used instead of the value being
 // formatted as a Go literal.
-func ExpectFile(t *testing.T, got interface{}, opts ...Option) {
+func ExpectFile(t *testing.T, got any, opts ...Option) {
 	t.Helper()
 	dir := testdataDir(opts)
 	fileName := testName(t, opts)

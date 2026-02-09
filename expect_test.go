@@ -163,7 +163,6 @@ func Test_replaceExpect_multiple(t *testing.T) {
 	}
 
 	for _, r := range replacements {
-		r := r
 		_, err := replaceExpect(t, tmpFile, r.testName, r.line, r.replacement, true)
 		if err != nil {
 			t.Log("\ngot:\n", err, "\nwant:\n", err)
@@ -244,7 +243,6 @@ func testEqualSubtestSameNames(t *testing.T) {
 	}
 
 	for _, name := range testTable {
-		name := name
 
 		t.Run(name, func(t *testing.T) {
 			// Subtests are intentionally not run in parallel, as that makes this issue more easily reproducible

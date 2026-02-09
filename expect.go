@@ -24,15 +24,15 @@ import (
 // Value describes a desired value for a Go test, see Expect for more information.
 type Value interface {
 	// Equal checks if `got` matches the desired test value, invoking t.Fatal otherwise.
-	Equal(t *testing.T, got interface{}, opts ...Option)
+	Equal(t *testing.T, got any, opts ...Option)
 }
 
 type value struct {
 	line  int
-	equal func(t *testing.T, got interface{}, opts ...Option)
+	equal func(t *testing.T, got any, opts ...Option)
 }
 
-func (v value) Equal(t *testing.T, got interface{}, opts ...Option) {
+func (v value) Equal(t *testing.T, got any, opts ...Option) {
 	t.Helper()
 	v.equal(t, got, opts...)
 }
@@ -88,11 +88,11 @@ find:
 // When `-update` is specified, autogold will find and replace in the test file by looking for an
 // invocation of `autogold.Expect(...)` at the same line as the callstack indicates for this function
 // call, rewriting the `want` value parameter for you.
-func Expect(want interface{}) Value {
+func Expect(want any) Value {
 	_, _, line, _ := runtime.Caller(1)
 	return value{
 		line: line,
-		equal: func(t *testing.T, got interface{}, opts ...Option) {
+		equal: func(t *testing.T, got any, opts ...Option) {
 			t.Helper()
 			var (
 				profGetPackageNameAndPath time.Duration
