@@ -215,6 +215,7 @@ func Expect(want any) Value {
 			if *failOnUpdate || !update() {
 				writeProfile()
 				t.Log(fmt.Errorf("mismatch (-want +got):\n%s", colorDiff(diff)))
+				t.Log("autogold: if this diff is expected, re-run test with -update flag to update the expected value")
 				t.FailNow()
 			}
 		},
