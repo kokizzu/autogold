@@ -4,6 +4,10 @@ on:
   - pull_request
 jobs:
   test:
+    name: Test (Go ${{ matrix.go-version }})
+    strategy:
+      matrix:
+        go-version: [stable, oldstable]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -11,7 +15,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: ^1
+          go-version: ${{ matrix.go-version }}
       - run: go test ./...
       # Testing with -update enabled isn't intended to update the golden files, but to help validate that there aren't
       # problems when updating is enabled, race conditions in the update process etc
