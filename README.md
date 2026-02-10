@@ -129,6 +129,12 @@ The following are alternatives to autogold, making note of the differences we fo
 
 ## Changelog
 
+#### v2.3.1
+
+* Added `ExpectFile` helper for improved test tracing ([#54](https://github.com/hexops/autogold/pull/54))
+* Test failure output now includes a hint to re-run with `-update` flag
+* Updated dependencies
+
 #### v2.3.0
 
 Updated to valast v1.5.0:
